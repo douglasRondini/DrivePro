@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_home_aluno"
+    app:startDestination="@id/homeAlunoFragment">
+
+    <fragment
+        android:id="@+id/homeAlunoFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.home.HomeAlunoFragment"
+        android:label="HomeAlunoFragment" >
+        <action
+            android:id="@+id/action_homeAlunoFragment_to_detalhesInstrutorFragment"
+            app:destination="@id/detalhesInstrutorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitacoesFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.solicitações.SolicitacoesFragment"
+        android:label="SolicitacoesFragment" />
+    <fragment
+        android:id="@+id/detalhesInstrutorFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.home.DetalhesInstrutorFragment"
+        android:label="DetalhesInstrutorFragment" >
+        <action
+            android:id="@+id/action_detalhesInstrutorFragment_to_confirmSolicitacoesFragment"
+            app:destination="@id/confirmSolicitacoesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmSolicitacoesFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.home.ConfirmSolicitacoesFragment"
+        android:label="ConfirmSolicitacoesFragment" />
+</navigation>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:gravity="center_vertical"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp">
+
+        <!-- Logo -->
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_logo_primary"
+            android:layout_marginBottom="32dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_car"
+                android:textColor="@color/background_dark"
+                android:fontFamily="@font/lexend_bold"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <!-- Headline -->
+        <TextView
+            android:id="@+id/headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Acesse sua conta"
+            android:textColor="@color/text_light"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"/>
+
+
+
+        <!-- Form Fields -->
+        <EditText
+            android:id="@+id/inputNome"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="Seu nome completo"
+            android:textColor="@color/text_light"
+            android:textColorHint="@color/text_light_hint"
+            android:background="@drawable/bg_input"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="seuemail@exemplo.com"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/text_light"
+            android:textColorHint="@color/text_light_hint"
+            android:background="@drawable/bg_input"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Senha com ícone -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_input"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/inputSenha"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Digite sua senha"
+                android:inputType="textPassword"
+                android:textColor="@color/text_light"
+                android:textColorHint="@color/text_light_hint"
+                android:background="@android:color/transparent"
+                android:paddingStart="15dp"/>
+
+
+        </LinearLayout>
+
+
+        <!-- Forgot Password -->
+        <TextView
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Esqueci minha senha"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:layout_gravity="end"
+            android:layout_marginTop="12dp"/>
+
+        <!-- Entrar Button -->
+        <Button
+            android:id="@+id/btnEntrar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Entrar"
+            android:textStyle="bold"
+            android:textColor="@color/background_dark"
+            android:backgroundTint="@color/primary"
+            android:layout_marginTop="24dp"/>
+
+        <!-- Alternative Action -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Não tem uma conta?"
+                android:textColor="@color/text_light_hint"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/linkCadastro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cadastre-se"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

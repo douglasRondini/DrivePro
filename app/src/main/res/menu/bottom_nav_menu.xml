@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeAlunoFragment"
+        android:icon="@drawable/ic_car"
+        android:title="Instrutores"/>
+    <item
+        android:id="@+id/solicitacoesFragment"
+        android:icon="@drawable/ic_search"
+        android:title="Solicitações"/>
+    <item
+        android:id="@+id/nav_perfil"
+        android:icon="@drawable/ic_test"
+        android:title="Perfil"/>
+</menu>

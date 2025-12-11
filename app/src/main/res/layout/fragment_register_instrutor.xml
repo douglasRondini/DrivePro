@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:paddingBottom="24dp">
+
+        <!-- Top App Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/outline_arrow_circle_left_24"
+                android:background="@android:color/transparent"
+                android:contentDescription="Voltar"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seja um Instrutor Parceiro"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Form Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome Completo"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputNome"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="Digite seu nome completo"
+            android:background="@drawable/bg_input"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número da CNH"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputCNH"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="000.000.000-00"
+            android:background="@drawable/bg_input"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefone para Contato"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="(DD) 99999-9999"
+            android:background="@drawable/bg_input"
+            android:inputType="phone"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preço da Hora/Aula"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputPreco"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="R$ 0,00"
+            android:background="@drawable/bg_input"
+            android:inputType="numberDecimal"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cidade de Atuação"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputCidade"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="Digite seu nome completo"
+            android:background="@drawable/bg_input"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"/>
+
+        <!-- Footer Actions -->
+        <Button
+            android:id="@+id/btnCadastrar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Cadastrar"
+            android:textStyle="bold"
+            android:textColor="@color/background_dark"
+            android:backgroundTint="@color/primary"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ao continuar, você concorda com nossos Termos de Serviço."
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>

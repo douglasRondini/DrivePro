@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_account"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.splash.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerAlunoFragment"
+            app:destination="@id/registerAlunoFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerInstrutorFragment"
+            app:destination="@id/registerInstrutorFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_bottomNavHomeActivity"
+            app:destination="@id/bottomNavHomeActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerAlunoFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.register.aluno.RegisterAlunoFragment"
+        android:label="RegisterAlunoFragment" />
+    <fragment
+        android:id="@+id/registerInstrutorFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.register.instrutor.RegisterInstrutorFragment"
+        android:label="RegisterInstrutorFragment" />
+    <activity
+        android:id="@+id/bottomNavHomeActivity"
+        android:name="com.douglasrondini.drive_20_android.ui.activities.BottomNavHomeActivity"
+        android:label="activity_bottom_nav_home"
+        tools:layout="@layout/activity_bottom_nav_home" />
+</navigation>

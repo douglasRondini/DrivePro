@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemInstructor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_card">
+
+    <!-- Informações do Instrutor -->
+    <LinearLayout
+        android:id="@+id/infoContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Nome -->
+        <TextView
+            android:id="@+id/tvNome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mariana Almeida"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+
+        <!-- Avaliação -->
+        <TextView
+            android:id="@+id/tvAvaliacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.8"
+            android:drawableEnd="@drawable/ic_star"
+            android:drawablePadding="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/gray"/>
+
+        <!-- Distância -->
+        <TextView
+            android:id="@+id/tvDistancia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A 2.5 km de você"
+            android:textSize="14sp"
+            android:textColor="@color/gray"/>
+
+        <!-- Disponibilidade -->
+        <TextView
+            android:id="@+id/tvDisponibilidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponível Hoje"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/accent_green"/>
+
+        <!-- Preço -->
+        <TextView
+            android:id="@+id/tvPreco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R$ 50/aula"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <!-- Foto do Instrutor -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgPerfil"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_foto"
+        android:scaleType="centerCrop"
+        android:contentDescription="Foto do Instrutor"
+        android:elevation="5dp"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"/>
+
+
+</LinearLayout>
