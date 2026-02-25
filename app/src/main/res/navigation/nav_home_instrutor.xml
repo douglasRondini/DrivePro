@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home_instrutor"
+    app:startDestination="@id/dashboardInstrutorFragment">
+
+    <fragment
+        android:id="@+id/dashboardInstrutorFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.dashboard.DashboardInstrutorFragment"
+        android:label="fragment_dashboard_instrutor"
+        tools:layout="@layout/fragment_dashboard_instrutor" >
+        <action
+            android:id="@+id/action_dashboardInstrutorFragment_to_solicitacaoDetalheInstrutorFragment"
+            app:destination="@id/solicitacaoDetalheInstrutorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/solicitacoesFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.dashboard.SolicitacoesInstrutorFragment"
+        android:label="fragment_solicitacoes_instrutor"
+        tools:layout="@layout/fragment_solicitacoes_instrutor" >
+        <action
+            android:id="@+id/action_solicitacoesFragment_to_solicitacaoDetalheInstrutorFragment"
+            app:destination="@id/solicitacaoDetalheInstrutorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/perfilInstrutorFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.dashboard.PerfilInstrutorFragment"
+        android:label="fragment_perfil_instrutor"
+        tools:layout="@layout/fragment_perfil_instrutor" >
+        <action
+            android:id="@+id/action_perfilInstrutorFragment_to_retiradaSaldoInstrutorFragment"
+            app:destination="@id/retiradaSaldoInstrutorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/retiradaSaldoInstrutorFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.dashboard.RetiradaSaldoInstrutorFragment"
+        android:label="fragment_retirada_saldo_instrutor"
+        tools:layout="@layout/fragment_retirada_saldo_instrutor" />
+
+    <fragment
+        android:id="@+id/solicitacaoDetalheInstrutorFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.dashboard.SolicitacaoDetalheInstrutorFragment"
+        android:label="fragment_solicitacao_detalhe_instrutor"
+        tools:layout="@layout/fragment_solicitacao_detalhe_instrutor" />
+</navigation>

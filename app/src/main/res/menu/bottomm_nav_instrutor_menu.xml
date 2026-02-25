@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboardInstrutorFragment"
+        android:icon="@drawable/ic_car"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/solicitacoesFragment"
+        android:icon="@drawable/ic_arron_next"
+        android:title="Solicitações" />
+
+    <item
+        android:id="@+id/perfilInstrutorFragment"
+        android:icon="@drawable/ic_instrutor"
+        android:title="Perfil" />
+</menu>

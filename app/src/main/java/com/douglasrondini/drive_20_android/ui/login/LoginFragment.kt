@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.douglasrondini.drive_20_android.R
 import com.douglasrondini.drive_20_android.databinding.FragmentLoginBinding
@@ -29,7 +30,8 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnEntrar.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_bottomNavHomeActivity)
+            var user = binding.inputNome.text.toString().trim()
+            loginNav(user)
         }
 
         binding.linkCadastro.setOnClickListener {
@@ -38,6 +40,25 @@ class LoginFragment : Fragment() {
                 "DialogCreatAccount"
             )
         }
+    }
+
+    private fun loginNav(user: String) {
+        val aluno = "aluno"
+        val instrutor = "instrutor"
+
+        when (user) {
+            aluno -> navHomeAluno()
+            instrutor -> navHomeInstrutor()
+            else -> Toast.makeText(requireContext(), "Usuário não reconhecido", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun navHomeAluno() {
+        findNavController().navigate(R.id.action_loginFragment_to_bottomNavHomeActivity)
+    }
+
+    private fun navHomeInstrutor() {
+        findNavController().navigate(R.id.action_loginFragment_to_bottomNavInstrutorActivity)
     }
 
 

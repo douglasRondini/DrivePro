@@ -1,10 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Drive_20android" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
-
+    <!-- Base application theme fixo em claro (ignora tema do sistema). -->
+    <style name="Base.Theme.Drive_20android" parent="Theme.Material3.Light.NoActionBar" />
     <style name="Theme.Drive_20android" parent="Base.Theme.Drive_20android" />
 
     <style name="CircularImageView">

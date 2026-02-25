@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_loginFragment_to_bottomNavHomeActivity"
             app:destination="@id/bottomNavHomeActivity" />
+        <action
+            android:id="@+id/action_loginFragment_to_bottomNavInstrutorActivity"
+            app:destination="@id/bottomNavInstrutorActivity" />
     </fragment>
     <fragment
         android:id="@+id/registerAlunoFragment"
@@ -40,4 +43,9 @@
         android:name="com.douglasrondini.drive_20_android.ui.activities.BottomNavHomeActivity"
         android:label="activity_bottom_nav_home"
         tools:layout="@layout/activity_bottom_nav_home" />
+    <activity
+        android:id="@+id/bottomNavInstrutorActivity"
+        android:name="com.douglasrondini.drive_20_android.ui.activities.BottomNavInstrutorActivity"
+        android:label="activity_bottom_nav_instrutor"
+        tools:layout="@layout/activity_bottom_nav_instrutor" />
 </navigation>
