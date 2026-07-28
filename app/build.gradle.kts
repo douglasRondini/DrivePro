@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.douglasrondini.drive_20_android"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.douglasrondini.drive_20_android"
@@ -47,7 +47,19 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.recyclerview)
+
+    // Koin
+    implementation(libs.koin.android)
+
+    // Retrofit & OkHttp
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
