@@ -1,8 +1,13 @@
 package com.douglasrondini.drive_20_android.data.remote
 
+import com.douglasrondini.drive_20_android.data.model.RegisterAlunoRequest
+import com.douglasrondini.drive_20_android.domain.home.aluno.AlunoRegister
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface ApiService {
-    // Exemplo: @GET("perfil")
-    // suspend fun getPerfil(): Response<UserResponse>
+    @POST("users")
+    suspend fun registerAluno(@Body aluno: RegisterAlunoRequest): Response<Unit>
 }
