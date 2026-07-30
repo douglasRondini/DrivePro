@@ -12,18 +12,17 @@ import androidx.navigation.fragment.findNavController
 import com.douglasrondini.drive_20_android.R
 import com.douglasrondini.drive_20_android.databinding.FragmentSplashBinding
 
+import com.douglasrondini.drive_20_android.data.local.PreferenceManager
+import org.koin.android.ext.android.inject
+
 class SplashFragment : Fragment() {
     private lateinit var binding: FragmentSplashBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val preferenceManager: PreferenceManager by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,12 +30,10 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initDelay()
-
     }
 
     private fun initDelay() {
         val progressBarHorizontal = binding.progressBar
-
         val totalProgressTime = 3000
         val progressBarMax = 100
 
@@ -54,12 +51,23 @@ class SplashFragment : Fragment() {
 
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-                requireActivity()
+                checkLoginStatus()
             }
-
         })
     }
 
+    private fun checkLoginStatus() {
+        val token = preferenceManager.getUserToken()
+        val role = preferenceManager.getUserRole()
 
+        if (token != null && role != null) {
+            when (role.lowercase()) {
+                "aluno" -> findNavController().navigate(R.id.action_splashFragment_to_bottomNavHomeActivity)
+                "instrutor" -> findNavController().navigate(R.id.action_splashFragment_to_bottomNavInstrutorActivity)
+                else -> findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
+        } else {
+            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+        }
+    }
 }

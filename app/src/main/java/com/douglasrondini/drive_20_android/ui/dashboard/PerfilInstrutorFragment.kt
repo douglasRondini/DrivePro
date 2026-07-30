@@ -9,10 +9,16 @@ import androidx.navigation.fragment.findNavController
 import com.douglasrondini.drive_20_android.R
 import com.douglasrondini.drive_20_android.databinding.FragmentPerfilInstrutorBinding
 
+import android.content.Intent
+import com.douglasrondini.drive_20_android.data.local.PreferenceManager
+import com.douglasrondini.drive_20_android.ui.activities.AccountActivity
+import org.koin.android.ext.android.inject
+
 class PerfilInstrutorFragment : Fragment() {
 
     private var _binding: FragmentPerfilInstrutorBinding? = null
     private val binding get() = _binding!!
+    private val preferenceManager: PreferenceManager by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +47,13 @@ class PerfilInstrutorFragment : Fragment() {
     private fun setupClicks() {
         binding.cardRetirarSaldo.setOnClickListener {
             findNavController().navigate(R.id.action_perfilInstrutorFragment_to_retiradaSaldoInstrutorFragment)
+        }
+
+        binding.btnLogout.setOnClickListener {
+            preferenceManager.clearData()
+            val intent = Intent(requireContext(), AccountActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 

@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_bottomNavHomeActivity"
+            app:destination="@id/bottomNavHomeActivity" />
+        <action
+            android:id="@+id/action_splashFragment_to_bottomNavInstrutorActivity"
+            app:destination="@id/bottomNavInstrutorActivity" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
