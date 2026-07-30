@@ -3,7 +3,8 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dark">
+    android:background="@color/background_dark"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,6 +81,32 @@
             android:textColorHint="@color/gray"
             android:background="@drawable/bg_input"
             android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- CPF -->
+        <EditText
+            android:id="@+id/inputCpf"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="000.000.000-00"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:background="@drawable/bg_input"
+            android:inputType="number"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Telefone -->
+        <EditText
+            android:id="@+id/inputTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="(00) 00000-0000"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:background="@drawable/bg_input"
+            android:inputType="phone"
             android:layout_marginBottom="16dp"/>
 
         <!-- Senha -->

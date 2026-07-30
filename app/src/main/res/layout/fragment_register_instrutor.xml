@@ -3,7 +3,8 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dark">
+    android:background="@color/background_dark"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,7 +57,61 @@
             android:paddingStart="15dp"
             android:hint="Digite seu nome completo"
             android:background="@drawable/bg_input"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="E-mail"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="seuemail@exemplo.com"
+            android:background="@drawable/bg_input"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Senha"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputSenha"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="Digite sua senha"
+            android:background="@drawable/bg_input"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Idade"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/inputIdade"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="15dp"
+            android:hint="Ex: 25"
+            android:background="@drawable/bg_input"
+            android:inputType="number"
+            android:textColor="@color/white"
             android:textColorHint="@color/gray"/>
 
         <TextView
@@ -74,7 +129,7 @@
             android:hint="000.000.000-00"
             android:background="@drawable/bg_input"
             android:inputType="number"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textColorHint="@color/gray"/>
 
         <TextView
@@ -92,42 +147,24 @@
             android:hint="(DD) 99999-9999"
             android:background="@drawable/bg_input"
             android:inputType="phone"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textColorHint="@color/gray"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Preço da Hora/Aula"
+            android:text="Placa do Veículo"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:layout_marginTop="16dp"/>
         <EditText
-            android:id="@+id/inputPreco"
+            android:id="@+id/inputPlaca"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:paddingStart="15dp"
-            android:hint="R$ 0,00"
+            android:hint="ABC1D23"
             android:background="@drawable/bg_input"
-            android:inputType="numberDecimal"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cidade de Atuação"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:layout_marginTop="16dp"/>
-        <EditText
-            android:id="@+id/inputCidade"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:paddingStart="15dp"
-            android:hint="Digite seu nome completo"
-            android:background="@drawable/bg_input"
-            android:textColor="@color/black"
             android:textColorHint="@color/gray"/>
 
         <!-- Footer Actions -->

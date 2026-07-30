@@ -5,56 +5,106 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.douglasrondini.drive_20_android.R
+import android.widget.Toast
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.douglasrondini.drive_20_android.databinding.FragmentRegisterInstrutorBinding
+import com.douglasrondini.drive_20_android.domain.home.instrutor.InstrutorRegister
+import com.douglasrondini.drive_20_android.utils.MaskWatcher
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterInstrutorFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegisterInstrutorFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentRegisterInstrutorBinding
+    private val viewModel: RegisterInstrutorViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_instrutor, container, false)
+    ): View {
+        binding = FragmentRegisterInstrutorBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterInstrutorFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterInstrutorFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupListeners()
+        observeUiState()
+        applyMasks()
+    }
+
+    private fun applyMasks() {
+        MaskWatcher.applyMask(MaskWatcher.MASK_PHONE, binding.inputTelefone)
+        // Adicionando máscaras para CNH e Placa também
+        MaskWatcher.applyMask(MaskWatcher.MASK_CNH, binding.inputCNH)
+        MaskWatcher.applyMask(MaskWatcher.MASK_PLATE, binding.inputPlaca)
+    }
+
+    private fun setupListeners() {
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.btnCadastrar.setOnClickListener {
+            val register = getInstrutorValues()
+            if (validateFields(register)) {
+                viewModel.registerInstrutor(register)
+            } else {
+                Toast.makeText(requireContext(), "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getInstrutorValues(): InstrutorRegister {
+        val telefone = MaskWatcher.unmask(binding.inputTelefone.text.toString())
+        val cnh = MaskWatcher.unmask(binding.inputCNH.text.toString())
+        val placa = MaskWatcher.unmask(binding.inputPlaca.text.toString())
+
+        return InstrutorRegister(
+            email = binding.inputEmail.text.toString().trim(),
+            name = binding.inputNome.text.toString().trim(),
+            age = binding.inputIdade.text.toString().trim(),
+            password = binding.inputSenha.text.toString().trim(),
+            telefone = telefone,
+            cnh = cnh,
+            placaVeiculo = placa
+        )
+    }
+
+    private fun validateFields(instrutor: InstrutorRegister): Boolean {
+        return instrutor.email.isNotEmpty() &&
+                instrutor.name.isNotEmpty() &&
+                instrutor.password.isNotEmpty() &&
+                instrutor.age.isNotEmpty() &&
+                instrutor.telefone.isNotEmpty() &&
+                instrutor.cnh.isNotEmpty() &&
+                instrutor.placaVeiculo.isNotEmpty()
+    }
+
+    private fun observeUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    handleLoading(state.isLoading)
+                    
+                    if (state.isSuccess) {
+                        Snackbar.make(binding.root, "Instrutor cadastrado com sucesso!", Snackbar.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                    }
+
+                    state.errorMessage?.let { msg ->
+                        Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
+        }
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        binding.btnCadastrar.isEnabled = !isLoading
+        binding.btnCadastrar.text = if (isLoading) "Cadastrando..." else "Cadastrar"
     }
 }

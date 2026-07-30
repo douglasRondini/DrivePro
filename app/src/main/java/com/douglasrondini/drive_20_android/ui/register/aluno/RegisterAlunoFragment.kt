@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.douglasrondini.drive_20_android.databinding.FragmentRegisterAlunoBinding
 import com.douglasrondini.drive_20_android.domain.home.aluno.AlunoRegister
 import com.douglasrondini.drive_20_android.domain.home.aluno.Role
+import com.douglasrondini.drive_20_android.utils.MaskWatcher
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,6 +38,12 @@ class RegisterAlunoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setup()
         observerUiState()
+        applyMasks()
+    }
+
+    private fun applyMasks() {
+        MaskWatcher.applyMask(MaskWatcher.MASK_CPF, binding.inputCpf)
+        MaskWatcher.applyMask(MaskWatcher.MASK_PHONE, binding.inputTelefone)
     }
 
     private fun setup() {
@@ -79,16 +86,15 @@ class RegisterAlunoFragment : Fragment() {
     }
 
     private fun registerAlunoValues(): AlunoRegister {
-        var aluno = AlunoRegister(
+        return AlunoRegister(
             email = binding.inputEmail.text.toString().trim(),
             name = binding.inputNome.text.toString().trim(),
             age = "28",
             password = binding.inputSenha.text.toString().trim(),
             role = Role.ALUNO,
-            telefone = "65996891997",
-            cpf = "04041686121"
+            telefone = MaskWatcher.unmask(binding.inputTelefone.text.toString()),
+            cpf = MaskWatcher.unmask(binding.inputCpf.text.toString())
         )
-        return aluno
     }
 
 
