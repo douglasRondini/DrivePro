@@ -13,14 +13,11 @@ import com.douglasrondini.drive_20_android.domain.repository.InstrutorRepository
 import com.douglasrondini.drive_20_android.domain.repository.LoginRepository
 import com.douglasrondini.drive_20_android.domain.repository.UserRepository
 import com.douglasrondini.drive_20_android.domain.home.aluno.RegisterAlunoUseCase
-import com.douglasrondini.drive_20_android.domain.usecase.GetInstructorAppointmentsUseCase
-import com.douglasrondini.drive_20_android.domain.usecase.LoginUseCase
-import com.douglasrondini.drive_20_android.domain.usecase.RegisterInstrutorUseCase
+import com.douglasrondini.drive_20_android.domain.usecase.*
 import com.douglasrondini.drive_20_android.ui.register.aluno.RegisterAlunoViewModel
 import com.douglasrondini.drive_20_android.ui.register.instrutor.RegisterInstrutorViewModel
 import com.douglasrondini.drive_20_android.ui.login.LoginViewModel
-import com.douglasrondini.drive_20_android.ui.dashboard.DashboardInstrutorViewModel
-import com.douglasrondini.drive_20_android.ui.dashboard.SolicitacoesInstrutorViewModel
+import com.douglasrondini.drive_20_android.ui.dashboard.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
@@ -46,6 +43,10 @@ val useCaseModule = module {
     factoryOf(::LoginUseCase)
     factoryOf(::RegisterInstrutorUseCase)
     factoryOf(::GetInstructorAppointmentsUseCase)
+    factoryOf(::AcceptAppointmentUseCase)
+    factoryOf(::RefuseAppointmentUseCase)
+    factoryOf(::CancelAppointmentUseCase)
+    factoryOf(::CompleteAppointmentUseCase)
 }
 
 val viewModelModule = module {
@@ -54,6 +55,7 @@ val viewModelModule = module {
     viewModelOf(::RegisterInstrutorViewModel)
     viewModelOf(::DashboardInstrutorViewModel)
     viewModelOf(::SolicitacoesInstrutorViewModel)
+    viewModelOf(::SolicitacaoDetalheInstrutorViewModel)
 }
 
 val apiModule = module {

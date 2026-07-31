@@ -48,8 +48,13 @@ class AppointmentAdapter(
                 val date = inputFormat.parse(appointment.dataHora)
                 
                 if (date != null) {
-                    binding.txtDate.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
-                    binding.txtTime.text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(date)
+                    val outputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val outputTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                    outputDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+                    outputTimeFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+                    binding.txtDate.text = outputDateFormat.format(date)
+                    binding.txtTime.text = outputTimeFormat.format(date)
                 }
             } catch (e: Exception) {
                 binding.txtDate.text = appointment.dataHora

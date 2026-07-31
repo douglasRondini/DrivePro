@@ -50,6 +50,11 @@ class DashboardInstrutorFragment : Fragment() {
         observeUiState()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadAppointments()
+    }
+
     private fun setupFilters() {
         binding.chipGroupFilters.setOnCheckedStateChangeListener { _, checkedIds ->
             val status = when (checkedIds.firstOrNull()) {
@@ -98,6 +103,7 @@ class DashboardInstrutorFragment : Fragment() {
 
     private fun navigateToDetail(appointment: Appointment) {
         val args = Bundle().apply {
+            putString("argId", appointment.id)
             putString("argNome", appointment.alunoNome)
             putString("argInfo", appointment.localOrigem)
             putString("argData", appointment.dataHora)

@@ -46,6 +46,11 @@ class SolicitacoesInstrutorFragment : Fragment() {
         observeUiState()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadAppointments()
+    }
+
     private fun setupRecycler() {
         binding.rvSolicitacoesInstrutor.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSolicitacoesInstrutor.adapter = adapter
@@ -85,6 +90,7 @@ class SolicitacoesInstrutorFragment : Fragment() {
 
     private fun navigateToDetail(appointment: Appointment) {
         val args = Bundle().apply {
+            putString("argId", appointment.id)
             putString("argNome", appointment.alunoNome)
             putString("argInfo", appointment.localOrigem)
             putString("argData", appointment.dataHora)

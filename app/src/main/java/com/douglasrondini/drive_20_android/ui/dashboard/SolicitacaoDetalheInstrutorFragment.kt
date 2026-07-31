@@ -4,10 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.douglasrondini.drive_20_android.R
 import com.douglasrondini.drive_20_android.databinding.FragmentSolicitacaoDetalheInstrutorBinding
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
@@ -16,6 +23,10 @@ class SolicitacaoDetalheInstrutorFragment : Fragment() {
 
     private var _binding: FragmentSolicitacaoDetalheInstrutorBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SolicitacaoDetalheInstrutorViewModel by viewModel()
+    
+    private var currentAppointmentId: String? = null
+    private var currentStatus: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,56 +40,55 @@ class SolicitacaoDetalheInstrutorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bindArgs()
         setupClicks()
+        observeUiState()
     }
 
     private fun bindArgs() {
         val args = requireArguments()
+        currentAppointmentId = args.getString("argId") // Certifique-se que o ID está sendo passado
         val nome = args.getString("argNome").orEmpty()
         val info = args.getString("argInfo").orEmpty()
         val rawDataHora = args.getString("argData").orEmpty()
         val contato = args.getString("argContato").orEmpty()
-        val status = args.getString("argStatus").orEmpty()
+        currentStatus = args.getString("argStatus").orEmpty()
         val preco = args.getString("argPreco").orEmpty()
         val avatar = args.getInt("argAvatar", R.drawable.ic_launcher_foreground)
         val statusBg = args.getInt("argStatusBg", R.color.primary)
         val statusText = args.getInt("argStatusText", android.R.color.black)
 
-        // Manipulação e Conversão de Data e Hora
-        var formattedDate = "---"
-        var formattedTime = "---"
+        var formattedDate = rawDataHora
+        var formattedTime = ""
 
         try {
-            // Formato que vem da API (ISO 8601)
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
             inputFormat.timeZone = TimeZone.getTimeZone("UTC")
             val date = inputFormat.parse(rawDataHora)
-            
             if (date != null) {
-                formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
-                formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(date)
+                // Criamos o formatador de saída e definimos o TimeZone como UTC para não subtrair as horas locais
+                val outputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val outputTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                outputDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+                outputTimeFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+                formattedDate = outputDateFormat.format(date)
+                formattedTime = outputTimeFormat.format(date)
             }
-        } catch (e: Exception) {
-            // Fallback caso o formato mude ou falhe
-            formattedDate = rawDataHora
-        }
+        } catch (e: Exception) {}
 
         binding.imgAvatar.setImageResource(avatar)
         binding.txtNome.text = nome
         binding.txtContato.text = "Contato: $contato"
-        
-        // Atribuindo os valores manipulados aos respectivos campos
         binding.txtData.text = "Data Solicitada: $formattedDate"
         binding.txtHorario.text = "Horário: $formattedTime"
-        binding.txtInfo.text = info
+        binding.txtStatus.text = currentStatus
         binding.txtPreco.text = "Valor: $preco"
-        binding.txtStatus.text = status
 
         val context = requireContext()
-        binding.txtStatus.backgroundTintList =
-            ContextCompat.getColorStateList(context, statusBg)
+        binding.txtStatus.backgroundTintList = ContextCompat.getColorStateList(context, statusBg)
         binding.txtStatus.setTextColor(ContextCompat.getColor(context, statusText))
+        binding.txtInfo.text = info
 
-        updateActionButtons(status)
+        updateActionButtons(currentStatus!!)
     }
 
     private fun updateActionButtons(status: String) {
@@ -106,8 +116,48 @@ class SolicitacaoDetalheInstrutorFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed() 
         }
-        binding.btnAceitar.setOnClickListener { /* Proxima tarefa: API update */ }
-        binding.btnRecusar.setOnClickListener { /* Proxima tarefa: API update */ }
+
+        binding.btnAceitar.setOnClickListener {
+            val id = currentAppointmentId ?: return@setOnClickListener
+            val status = currentStatus?.uppercase() ?: return@setOnClickListener
+            
+            if (status == "PENDENTE") {
+                viewModel.accept(id)
+            } else if (status == "ACEITA") {
+                viewModel.complete(id)
+            }
+        }
+
+        binding.btnRecusar.setOnClickListener {
+            val id = currentAppointmentId ?: return@setOnClickListener
+            val status = currentStatus?.uppercase() ?: return@setOnClickListener
+
+            if (status == "PENDENTE") {
+                viewModel.refuse(id)
+            } else if (status == "ACEITA") {
+                viewModel.cancel(id)
+            }
+        }
+    }
+
+    private fun observeUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    binding.btnAceitar.isEnabled = !state.isLoading
+                    binding.btnRecusar.isEnabled = !state.isLoading
+                    
+                    if (state.isSuccess) {
+                        Snackbar.make(binding.root, "Status atualizado com sucesso!", Snackbar.LENGTH_SHORT).show()
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
+                    }
+
+                    state.errorMessage?.let { msg ->
+                        Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

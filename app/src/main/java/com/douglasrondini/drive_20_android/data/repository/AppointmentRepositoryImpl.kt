@@ -1,5 +1,6 @@
 package com.douglasrondini.drive_20_android.data.repository
 
+import com.douglasrondini.drive_20_android.data.model.AcceptAppointmentRequest
 import com.douglasrondini.drive_20_android.data.remote.ApiService
 import com.douglasrondini.drive_20_android.data.remote.helper.BaseRepository
 import com.douglasrondini.drive_20_android.domain.model.Appointment
@@ -26,5 +27,29 @@ class AppointmentRepositoryImpl(
                 }
             }
         )
+    }
+
+    override suspend fun acceptAppointment(appointmentId: String, instructorId: String): Result<Unit> {
+        return safeApiCallUnit {
+            apiService.acceptAppointment(appointmentId, AcceptAppointmentRequest(instructorId))
+        }
+    }
+
+    override suspend fun refuseAppointment(appointmentId: String): Result<Unit> {
+        return safeApiCallUnit {
+            apiService.refuseAppointment(appointmentId)
+        }
+    }
+
+    override suspend fun cancelAppointment(appointmentId: String): Result<Unit> {
+        return safeApiCallUnit {
+            apiService.cancelAppointment(appointmentId)
+        }
+    }
+
+    override suspend fun completeAppointment(appointmentId: String): Result<Unit> {
+        return safeApiCallUnit {
+            apiService.completeAppointment(appointmentId)
+        }
     }
 }
