@@ -8,14 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.douglasrondini.drive_20_android.R
+import com.douglasrondini.drive_20_android.data.local.PreferenceManager
 import com.douglasrondini.drive_20_android.databinding.FragmentDashboardInstrutorBinding
 import com.douglasrondini.drive_20_android.domain.home.instrutor.DashboardSolicitacao
 import com.douglasrondini.drive_20_android.ui.home.adapter.DashboardSolicitacaoAdapter
+import org.koin.android.ext.android.inject
 
 class DashboardInstrutorFragment : Fragment() {
 
     private var _binding: FragmentDashboardInstrutorBinding? = null
     private val binding get() = _binding!!
+    private val preferenceManager: PreferenceManager by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +31,13 @@ class DashboardInstrutorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
         setupRecycler()
+    }
+
+    private fun setupUI() {
+        val userName = preferenceManager.getUserName() ?: "Instrutor"
+        binding.txtGreeting.text = "Olá, $userName"
     }
 
     private fun setupRecycler() {

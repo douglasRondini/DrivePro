@@ -9,12 +9,15 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.douglasrondini.drive_20_android.R
+import com.douglasrondini.drive_20_android.data.local.PreferenceManager
 import com.douglasrondini.drive_20_android.databinding.FragmentHomeAlunoBinding
 import com.douglasrondini.drive_20_android.domain.home.aluno.InfoInstrutor
 import com.douglasrondini.drive_20_android.ui.home.adapter.InstrutorAdapter
+import org.koin.android.ext.android.inject
 
 class HomeAlunoFragment : Fragment() {
     private lateinit var binding: FragmentHomeAlunoBinding
+    private val preferenceManager: PreferenceManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,9 @@ class HomeAlunoFragment : Fragment() {
 
 
     private fun setupUi() {
+        val userName = preferenceManager.getUserName() ?: "Aluno"
+        binding.txtGreeting.text = "Olá, $userName"
+
         val instrutores = listOf(
             InfoInstrutor(
                 nome = "Mariana Almeida",

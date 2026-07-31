@@ -29,6 +29,10 @@ class PreferenceManager(context: Context) {
         return sharedPreferences.getString(KEY_USER_ROLE, null)
     }
 
+    fun getUserName(): String? {
+        return sharedPreferences.getString(KEY_USER_NAME, null)
+    }
+
     fun clearData() {
         sharedPreferences.edit().clear().apply()
     }
