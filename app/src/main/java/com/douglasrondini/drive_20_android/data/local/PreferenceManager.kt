@@ -33,6 +33,10 @@ class PreferenceManager(context: Context) {
         return sharedPreferences.getString(KEY_USER_NAME, null)
     }
 
+    fun getUserId(): String? {
+        return sharedPreferences.getString(KEY_USER_ID, null)
+    }
+
     fun clearData() {
         sharedPreferences.edit().clear().apply()
     }

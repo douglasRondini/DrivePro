@@ -32,7 +32,7 @@ class DashboardSolicitacaoAdapter(
 
         fun bind(item: DashboardSolicitacao) {
             binding.txtName.text = item.nome
-            binding.txtInfo.text = item.info
+            binding.txtLocation.text = item.info
             binding.txtStatus.text = item.status
             binding.imgAvatar.setImageResource(item.avatarRes)
 

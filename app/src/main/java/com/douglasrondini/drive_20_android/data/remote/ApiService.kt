@@ -1,5 +1,6 @@
 package com.douglasrondini.drive_20_android.data.remote
 
+import com.douglasrondini.drive_20_android.data.model.AppointmentResponse
 import com.douglasrondini.drive_20_android.data.model.LoginRequest
 import com.douglasrondini.drive_20_android.data.model.LoginResponse
 import com.douglasrondini.drive_20_android.data.model.RegisterAlunoRequest
@@ -9,6 +10,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("users")
@@ -19,4 +21,7 @@ interface ApiService {
 
     @POST("login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+
+    @GET("agendamentos/instrutor/{id}")
+    suspend fun getAppointmentsByInstructor(@Path("id") instructorId: String): Response<List<AppointmentResponse>>
 }

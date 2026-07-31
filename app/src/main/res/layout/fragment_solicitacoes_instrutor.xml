@@ -50,57 +50,70 @@
                 android:layout_marginTop="12dp"
                 android:scrollbars="none">
 
-                <LinearLayout
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupFilters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:dividerPadding="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAll"
                         style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                        android:id="@+id/chipTodas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:text="Todas"
-                        android:textStyle="bold"
-                        app:chipBackgroundColor="@color/primary"
-                        app:chipStrokeWidth="0dp" />
+                        android:checked="true"
+                        app:chipBackgroundColor="@color/primary" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipPending"
                         style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                        android:id="@+id/chipPendentes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="Pendentes"
-                        app:chipBackgroundColor="@color/background_light"
-                        app:chipStrokeColor="@color/gray"
-                        app:chipStrokeWidth="1dp" />
+                        android:text="Pendentes" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAccepted"
                         style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                        android:id="@+id/chipAceitas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="Aceitas"
-                        app:chipBackgroundColor="@color/background_light"
-                        app:chipStrokeColor="@color/gray"
-                        app:chipStrokeWidth="1dp" />
+                        android:text="Aceitas" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCompleted"
                         style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-                        android:id="@+id/chipConcluidas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Concluídas"
-                        app:chipBackgroundColor="@color/background_light"
-                        app:chipStrokeColor="@color/gray"
-                        app:chipStrokeWidth="1dp" />
-                </LinearLayout>
+                        android:text="Concluídas" />
+                </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
+
+            <!-- Placeholder para lista vazia -->
+            <LinearLayout
+                android:id="@+id/emptyPlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/ic_car"
+                    android:alpha="0.2"
+                    app:tint="@color/gray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nenhuma solicitação encontrada."
+                    android:textColor="@color/gray"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp" />
+            </LinearLayout>
 
             <!-- Lista de solicitações -->
             <androidx.recyclerview.widget.RecyclerView
