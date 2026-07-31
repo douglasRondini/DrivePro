@@ -46,13 +46,15 @@
                     android:weightSum="1">
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgAvatar"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:contentDescription="@string/app_name"
                         android:padding="2dp"
-                        android:src="@drawable/ic_launcher_foreground"
+                        android:src="@drawable/ic_person"
                         app:shapeAppearanceOverlay="@style/CircularImageView"
-                        tools:src="@drawable/ic_launcher_foreground" />
+                        app:tint="@color/black"
+                        tools:src="@drawable/ic_person" />
 
                     <TextView
                         android:id="@+id/txtGreeting"
@@ -299,71 +301,77 @@
                         android:orientation="horizontal"
                         android:paddingHorizontal="4dp">
 
+                        <!-- Coluna Solicitadas -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="bottom|center_horizontal"
-                            android:orientation="vertical">
-
+                            android:orientation="vertical"
+                            android:paddingHorizontal="4dp">
+                            <View android:id="@+id/spacerRequested" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0" />
                             <View
+                                android:id="@+id/viewBarRequested"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="0.8"
+                                android:layout_weight="1"
                                 android:background="@color/primary" />
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
+                                android:layout_gravity="center_horizontal"
                                 android:text="Solicitadas"
                                 android:textColor="@color/gray"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </LinearLayout>
 
+                        <!-- Coluna Concluídas -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="bottom|center_horizontal"
                             android:orientation="vertical"
-                            android:paddingHorizontal="8dp">
-
+                            android:paddingHorizontal="4dp">
+                            <View android:id="@+id/spacerCompleted" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0.5" />
                             <View
+                                android:id="@+id/viewBarCompleted"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="0.9"
+                                android:layout_weight="0.5"
                                 android:background="@color/accent_green" />
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
+                                android:layout_gravity="center_horizontal"
                                 android:text="Concluídas"
                                 android:textColor="@color/gray"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </LinearLayout>
 
+                        <!-- Coluna Canceladas -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="bottom|center_horizontal"
-                            android:orientation="vertical">
-
+                            android:orientation="vertical"
+                            android:paddingHorizontal="4dp">
+                            <View android:id="@+id/spacerCancelled" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0.8" />
                             <View
+                                android:id="@+id/viewBarPending"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="0.3"
-                                android:background="@color/gray" />
-
+                                android:layout_weight="0.2"
+                                android:background="@android:color/holo_red_dark" />
                             <TextView
+                                android:id="@+id/txtLabelPending"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
-                                android:text="Pendentes"
+                                android:layout_gravity="center_horizontal"
+                                android:text="Canceladas"
                                 android:textColor="@color/gray"
-                                android:textSize="12sp" />
+                                android:textSize="10sp" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

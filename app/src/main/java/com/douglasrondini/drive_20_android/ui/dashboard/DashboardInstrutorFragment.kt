@@ -1,9 +1,13 @@
 package com.douglasrondini.drive_20_android.ui.dashboard
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -70,6 +74,8 @@ class DashboardInstrutorFragment : Fragment() {
     private fun setupUI() {
         val userName = preferenceManager.getUserName() ?: "Instrutor"
         binding.txtGreeting.text = "Olá, $userName!"
+        binding.imgAvatar.setImageResource(R.drawable.ic_person)
+        binding.imgAvatar.setColorFilter(ContextCompat.getColor(requireContext(), R.color.black))
     }
 
     private fun setupRecycler() {
@@ -81,10 +87,7 @@ class DashboardInstrutorFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
-                    if (state.isLoading) {
-                        // Opcional: mostrar progresso
-                    }
-                    
+                    updateDashboardStats(state)
                     adapter.updateItems(state.appointments)
                     handlePlaceholder(state.appointments.isEmpty())
 
@@ -94,6 +97,59 @@ class DashboardInstrutorFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun updateDashboardStats(state: DashboardInstrutorUiState) {
+        binding.txtCompleted.text = state.completedCount.toString()
+        binding.txtPending.text = state.pendingCount.toString()
+        binding.txtRevenue.text = "R$ %.2f".format(state.totalRevenue)
+        binding.txtTotalClasses.text = state.totalRequests.toString()
+
+        val total = state.totalRequests.toFloat()
+        if (total > 0) {
+            // Solicitadas é sempre 100%
+            updateGraphBar(binding.viewBarRequested, binding.spacerRequested, 1.0f)
+            
+            // Proporções calculadas
+            val completedRatio = state.completedCount.toFloat() / total
+            val cancelledRatio = state.cancelledCount.toFloat() / total
+            
+            updateGraphBar(binding.viewBarCompleted, binding.spacerCompleted, completedRatio)
+            updateGraphBar(binding.viewBarPending, binding.spacerCancelled, cancelledRatio)
+        } else {
+            // Sem dados, as barras somem
+            updateGraphBar(binding.viewBarRequested, binding.spacerRequested, 0.0f)
+            updateGraphBar(binding.viewBarCompleted, binding.spacerCompleted, 0.0f)
+            updateGraphBar(binding.viewBarPending, binding.spacerCancelled, 0.0f)
+        }
+    }
+
+    private fun updateGraphBar(bar: View, spacer: View, ratio: Float) {
+        val targetBarWeight = ratio.coerceIn(0.01f, 1.0f)
+        val targetSpacerWeight = (1.0f - targetBarWeight).coerceIn(0.0f, 0.99f)
+
+        val barParams = bar.layoutParams as LinearLayout.LayoutParams
+        val spacerParams = spacer.layoutParams as LinearLayout.LayoutParams
+
+        val initialBarWeight = barParams.weight
+        val initialSpacerWeight = spacerParams.weight
+
+        // Animator para criar o efeito de "crescimento" das barras
+        val animator = ValueAnimator.ofFloat(0f, 1f)
+        animator.duration = 1000 // 1 segundo de animação
+        animator.interpolator = DecelerateInterpolator() // Começa rápido e desacelera
+
+        animator.addUpdateListener { animation ->
+            val fraction = animation.animatedValue as Float
+            
+            // Interpolação entre o peso atual e o peso final
+            barParams.weight = initialBarWeight + (targetBarWeight - initialBarWeight) * fraction
+            spacerParams.weight = initialSpacerWeight + (targetSpacerWeight - initialSpacerWeight) * fraction
+            
+            bar.layoutParams = barParams
+            spacer.layoutParams = spacerParams
+        }
+        animator.start()
     }
 
     private fun handlePlaceholder(isEmpty: Boolean) {
@@ -111,7 +167,7 @@ class DashboardInstrutorFragment : Fragment() {
             putString("argContato", appointment.alunoTelefone)
             putString("argStatus", appointment.status)
             putString("argPreco", "R$ %.2f".format(appointment.preco))
-            putInt("argAvatar", R.drawable.ic_launcher_foreground)
+            putInt("argAvatar", R.drawable.ic_person)
             
             val statusBg = if (appointment.status.uppercase() == "ACEITA") R.color.accent_green else R.color.primary
             val statusText = if (appointment.status.uppercase() == "ACEITA") android.R.color.white else android.R.color.black

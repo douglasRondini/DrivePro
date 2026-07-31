@@ -72,13 +72,14 @@
     <!-- Foto do Instrutor -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgPerfil"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_foto"
-        android:scaleType="centerCrop"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_person"
+        android:scaleType="centerInside"
         android:contentDescription="Foto do Instrutor"
         android:elevation="5dp"
-        app:shapeAppearanceOverlay="@style/RoundedImageView"/>
+        app:tint="@color/white"
+        app:shapeAppearanceOverlay="@style/CircularImageView"/>
 
 
 </LinearLayout>

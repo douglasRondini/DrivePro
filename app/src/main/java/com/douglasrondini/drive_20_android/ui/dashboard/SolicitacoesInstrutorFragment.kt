@@ -98,7 +98,7 @@ class SolicitacoesInstrutorFragment : Fragment() {
             putString("argContato", appointment.alunoTelefone)
             putString("argStatus", appointment.status)
             putString("argPreco", "R$ %.2f".format(appointment.preco))
-            putInt("argAvatar", R.drawable.ic_launcher_foreground)
+            putInt("argAvatar", R.drawable.ic_person)
             
             val statusBg = if (appointment.status.uppercase() == "ACEITA") R.color.accent_green else R.color.primary
             val statusText = if (appointment.status.uppercase() == "ACEITA") android.R.color.white else android.R.color.black

@@ -40,8 +40,8 @@ class AppointmentAdapter(
         fun bind(appointment: Appointment) {
             binding.txtName.text = appointment.alunoNome
             binding.txtLocation.text = appointment.localOrigem
-            
-            // Formatação de Data e Hora
+            binding.imgAvatar.setImageResource(R.drawable.ic_person)
+            binding.imgAvatar.setColorFilter(ContextCompat.getColor(itemView.context, R.color.black))
             try {
                 val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
                 inputFormat.timeZone = TimeZone.getTimeZone("UTC")

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.douglasrondini.drive_20_android.data.local.PreferenceManager
 import com.douglasrondini.drive_20_android.domain.model.Appointment
 import com.douglasrondini.drive_20_android.domain.usecase.GetInstructorAppointmentsUseCase
+import com.douglasrondini.drive_20_android.utils.InstructorStatsHelper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,12 @@ class DashboardInstrutorViewModel(
     private val preferenceManager: PreferenceManager
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DashboardInstrutorUiState())
+    private val _uiState = MutableStateFlow(DashboardInstrutorUiState(
+        completedCount = preferenceManager.getSavedCompletedCount(),
+        pendingCount = preferenceManager.getSavedPendingCount(),
+        totalRevenue = preferenceManager.getSavedTotalRevenue(),
+        acceptedCount = preferenceManager.getSavedAcceptedCount()
+    ))
     val uiState: StateFlow<DashboardInstrutorUiState> = _uiState.asStateFlow()
 
     private var allAppointments: List<Appointment> = emptyList()
@@ -34,6 +40,7 @@ class DashboardInstrutorViewModel(
             getInstructorAppointmentsUseCase(instructorId)
                 .onSuccess { list ->
                     allAppointments = list
+                    updateStats(list)
                     _uiState.update { it.copy(isLoading = false, appointments = list) }
                 }
                 .onFailure { error ->
@@ -44,6 +51,28 @@ class DashboardInstrutorViewModel(
                         ) 
                     }
                 }
+        }
+    }
+
+    private fun updateStats(appointments: List<Appointment>) {
+        val completed = InstructorStatsHelper.calculateCompletedCount(appointments)
+        val pending = InstructorStatsHelper.calculatePendingCount(appointments)
+        val accepted = InstructorStatsHelper.calculateAcceptedCount(appointments)
+        val cancelled = InstructorStatsHelper.calculateCancelledCount(appointments)
+        val revenue = InstructorStatsHelper.calculateTotalRevenue(appointments)
+        val total = InstructorStatsHelper.calculateTotalRequests(appointments)
+
+        preferenceManager.saveInstructorStats(completed, pending, revenue, accepted)
+
+        _uiState.update { 
+            it.copy(
+                completedCount = completed,
+                pendingCount = pending,
+                cancelledCount = cancelled,
+                totalRevenue = revenue,
+                acceptedCount = accepted,
+                totalRequests = total
+            )
         }
     }
 

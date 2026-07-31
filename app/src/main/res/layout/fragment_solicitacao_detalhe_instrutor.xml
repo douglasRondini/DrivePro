@@ -73,9 +73,10 @@
                         android:id="@+id/imgAvatar"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/ic_launcher_foreground"
+                        android:src="@drawable/ic_person"
                         app:shapeAppearanceOverlay="@style/CircularImageView"
-                        tools:src="@drawable/ic_launcher_foreground" />
+                        app:tint="@color/black"
+                        tools:src="@drawable/ic_person" />
 
                     <LinearLayout
                         android:layout_width="0dp"

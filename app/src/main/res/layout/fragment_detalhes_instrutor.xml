@@ -43,9 +43,10 @@
                     android:id="@+id/imgInstrutor"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@drawable/ic_foto"
-                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_person"
+                    android:scaleType="centerInside"
                     android:contentDescription="Foto do Instrutor"
+                    app:tint="@color/white"
                     app:shapeAppearanceOverlay="@style/CircularImageView"/>
 
 

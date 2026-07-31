@@ -49,7 +49,7 @@ class HomeAlunoFragment : Fragment() {
                 distance = "A 2,5km de você",
                 disponibilidade = "Disponível Hoje",
                 price = "R$ 50,00",
-                imgPerfil = R.drawable.ic_foto
+                imgPerfil = R.drawable.ic_person
             ),
             InfoInstrutor(
                 nome = "Roberto Almeida",
@@ -57,7 +57,7 @@ class HomeAlunoFragment : Fragment() {
                 distance = "A 2,5km de você",
                 disponibilidade = "Disponível Hoje",
                 price = "R$ 50,00",
-                imgPerfil = R.drawable.img_instrutor
+                imgPerfil = R.drawable.ic_person
             ),
 //            InfoInstrutor(
 //                nome = "Mariana Almeida",

@@ -52,7 +52,7 @@ class SolicitacaoDetalheInstrutorFragment : Fragment() {
         val contato = args.getString("argContato").orEmpty()
         currentStatus = args.getString("argStatus").orEmpty()
         val preco = args.getString("argPreco").orEmpty()
-        val avatar = args.getInt("argAvatar", R.drawable.ic_launcher_foreground)
+        val avatar = args.getInt("argAvatar", R.drawable.ic_person)
         val statusBg = args.getInt("argStatusBg", R.color.primary)
         val statusText = args.getInt("argStatusText", android.R.color.black)
 
@@ -76,6 +76,7 @@ class SolicitacaoDetalheInstrutorFragment : Fragment() {
         } catch (e: Exception) {}
 
         binding.imgAvatar.setImageResource(avatar)
+        binding.imgAvatar.setColorFilter(ContextCompat.getColor(requireContext(), R.color.black))
         binding.txtNome.text = nome
         binding.txtContato.text = "Contato: $contato"
         binding.txtData.text = "Data Solicitada: $formattedDate"
