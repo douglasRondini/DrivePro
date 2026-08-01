@@ -1,18 +1,9 @@
 package com.douglasrondini.drive_20_android.data.remote
 
-import com.douglasrondini.drive_20_android.data.model.AcceptAppointmentRequest
-import com.douglasrondini.drive_20_android.data.model.AppointmentResponse
-import com.douglasrondini.drive_20_android.data.model.LoginRequest
-import com.douglasrondini.drive_20_android.data.model.LoginResponse
-import com.douglasrondini.drive_20_android.data.model.RegisterAlunoRequest
-import com.douglasrondini.drive_20_android.data.model.RegisterInstrutorRequest
+import com.douglasrondini.drive_20_android.data.model.*
 import com.douglasrondini.drive_20_android.domain.home.aluno.AlunoRegister
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PATCH
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
     @POST("users")
@@ -41,4 +32,7 @@ interface ApiService {
 
     @PATCH("agendamentos/{id}/concluir")
     suspend fun completeAppointment(@Path("id") appointmentId: String): Response<Unit>
+
+    @GET("instrutores/disponiveis")
+    suspend fun getAvailableInstructors(): Response<List<InstructorResponse>>
 }
