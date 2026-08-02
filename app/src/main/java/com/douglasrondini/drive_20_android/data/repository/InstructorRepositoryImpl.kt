@@ -18,6 +18,7 @@ class InstructorRepositoryImpl(
                         id = dto.id,
                         name = dto.name,
                         phone = dto.phone,
+                        cnh = dto.cnh,
                         plate = dto.plate,
                         isAvailable = dto.isAvailable,
                         email = dto.user.email

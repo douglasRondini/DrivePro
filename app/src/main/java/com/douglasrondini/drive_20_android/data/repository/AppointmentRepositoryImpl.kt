@@ -21,8 +21,27 @@ class AppointmentRepositoryImpl(
                         localOrigem = response.localOrigem,
                         dataHora = response.dataHora,
                         preco = response.preco,
-                        alunoNome = response.aluno.nome,
-                        alunoTelefone = response.aluno.telefone
+                        partnerName = response.aluno?.nome ?: "",
+                        partnerPhone = response.aluno?.telefone ?: ""
+                    )
+                }
+            }
+        )
+    }
+
+    override suspend fun getAppointmentsByStudent(studentId: String): Result<List<Appointment>> {
+        return safeApiCall(
+            apiCall = { apiService.getAppointmentsByStudent(studentId) },
+            transform = { responses ->
+                responses.map { response ->
+                    Appointment(
+                        id = response.id,
+                        status = response.status,
+                        localOrigem = response.localOrigem,
+                        dataHora = response.dataHora,
+                        preco = response.preco,
+                        partnerName = response.instrutor?.nome ?: "",
+                        partnerPhone = response.instrutor?.telefone ?: ""
                     )
                 }
             }

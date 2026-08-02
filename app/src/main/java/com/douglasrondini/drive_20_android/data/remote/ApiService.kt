@@ -18,6 +18,9 @@ interface ApiService {
     @GET("agendamentos/instrutor/{id}")
     suspend fun getAppointmentsByInstructor(@Path("id") instructorId: String): Response<List<AppointmentResponse>>
 
+    @GET("agendamentos/aluno/{id}")
+    suspend fun getAppointmentsByStudent(@Path("id") studentId: String): Response<List<AppointmentResponse>>
+
     @PATCH("agendamentos/{id}/aceitar")
     suspend fun acceptAppointment(
         @Path("id") appointmentId: String,

@@ -6,24 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.douglasrondini.drive_20_android.R
 import com.douglasrondini.drive_20_android.databinding.DialogCalendarBinding
 import com.douglasrondini.drive_20_android.databinding.FragmentDetalhesInstrutorBinding
+import com.douglasrondini.drive_20_android.domain.model.Instructor
 import com.douglasrondini.drive_20_android.ui.home.adapter.CustomSpinnerAdapter
 
 class DetalhesInstrutorFragment : Fragment() {
     private lateinit var binding: FragmentDetalhesInstrutorBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var instructor: Instructor? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = FragmentDetalhesInstrutorBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,27 +29,58 @@ class DetalhesInstrutorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        instructor = arguments?.getParcelable("argInstructor")
+        
+        setupUI()
+        setupListeners()
+        selectData()
+        configurarSpinners()
+    }
+
+    private fun setupUI() {
+        instructor?.let { item ->
+            binding.txtNomeInstrutor.text = item.name
+            binding.txtTelefoneInstrutor.text = item.phone
+            binding.txtCNHInstrutor.text = "CNH: ${item.cnh}"
+            binding.txtVeiculoInstrutor.text = "Veículo: ${item.plate}"
+            binding.imgInstrutor.setImageResource(R.drawable.ic_person)
+            binding.imgInstrutor.setColorFilter(ContextCompat.getColor(requireContext(), R.color.white))
+            
+            binding.txtDisponibilidade.text = if (item.isAvailable) "Disponível" else "Indisponível"
+            binding.txtDisponibilidade.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    if (item.isAvailable) R.color.accent_green else R.color.gray
+                )
+            )
+
+            // Dados estáticos para campos que não vêm na lista da API
+            binding.txtNota.text = "4.9"
+            binding.txtExperienciaInstrutor.text = "Experiência comprovada"
+            binding.txtPrecoAula.text = "Consultar valor"
+        }
+    }
+
+    private fun setupListeners() {
         binding.btnSolicitarAula.setOnClickListener {
             findNavController().navigate(R.id.action_detalhesInstrutorFragment_to_confirmSolicitacoesFragment)
         }
-
-        selectData()
-        configurarSpinners()
-
+        
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun selectData() {
         binding.data.setOnClickListener {
-            // inflar o layout do dialog usando binding do layout do diálogo
             val dialogBinding = DialogCalendarBinding.inflate(layoutInflater)
 
-            val dialog = AlertDialog.Builder(requireContext()) // aqui muda!
+            val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogBinding.root)
                 .setTitle("Selecione uma data")
                 .setNegativeButton("Cancelar", null)
                 .create()
 
-            // Listener para seleção de data
             dialogBinding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
                 val selectedDate = "$dayOfMonth/${month + 1}/$year"
                 binding.data.text = selectedDate
@@ -65,8 +94,7 @@ class DetalhesInstrutorFragment : Fragment() {
 
     private fun configurarSpinners() {
         val horarios = resources.getStringArray(R.array.horarios_array).toList()
-        val adapterSpinner = CustomSpinnerAdapter(requireContext(),horarios)
-
+        val adapterSpinner = CustomSpinnerAdapter(requireContext(), horarios)
         binding.spinnerHorarios.adapter = adapterSpinner
     }
 }

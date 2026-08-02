@@ -6,6 +6,6 @@ data class Appointment(
     val localOrigem: String,
     val dataHora: String,
     val preco: Double,
-    val alunoNome: String,
-    val alunoTelefone: String
+    val partnerName: String,
+    val partnerPhone: String
 )

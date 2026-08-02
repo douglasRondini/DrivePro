@@ -27,8 +27,10 @@ class HomeAlunoFragment : Fragment() {
 
     private val adapter by lazy {
         InstrutorAdapter(emptyList()) { instrutor ->
-            Toast.makeText(requireContext(), "Instrutor: ${instrutor.name}", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_homeAlunoFragment_to_detalhesInstrutorFragment)
+            val args = Bundle().apply {
+                putParcelable("argInstructor", instrutor)
+            }
+            findNavController().navigate(R.id.action_homeAlunoFragment_to_detalhesInstrutorFragment, args)
         }
     }
 

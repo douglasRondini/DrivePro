@@ -15,7 +15,16 @@
     <fragment
         android:id="@+id/solicitacoesFragment"
         android:name="com.douglasrondini.drive_20_android.ui.solicitações.SolicitacoesFragment"
-        android:label="SolicitacoesFragment" />
+        android:label="SolicitacoesFragment" >
+        <action
+            android:id="@+id/action_solicitacoesFragment_to_solicitacaoDetalheInstrutorFragment"
+            app:destination="@id/solicitacaoDetalheInstrutorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/solicitacaoDetalheInstrutorFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.dashboard.SolicitacaoDetalheInstrutorFragment"
+        android:label="SolicitacaoDetalheInstrutorFragment" />
     <fragment
         android:id="@+id/detalhesInstrutorFragment"
         android:name="com.douglasrondini.drive_20_android.ui.home.DetalhesInstrutorFragment"

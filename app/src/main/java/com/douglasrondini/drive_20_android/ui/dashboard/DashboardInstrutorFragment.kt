@@ -160,11 +160,11 @@ class DashboardInstrutorFragment : Fragment() {
     private fun navigateToDetail(appointment: Appointment) {
         val args = Bundle().apply {
             putString("argId", appointment.id)
-            putString("argNome", appointment.alunoNome)
+            putString("argNome", appointment.partnerName)
             putString("argInfo", appointment.localOrigem)
             putString("argData", appointment.dataHora)
             putString("argHorario", "")
-            putString("argContato", appointment.alunoTelefone)
+            putString("argContato", appointment.partnerPhone)
             putString("argStatus", appointment.status)
             putString("argPreco", "R$ %.2f".format(appointment.preco))
             putInt("argAvatar", R.drawable.ic_person)

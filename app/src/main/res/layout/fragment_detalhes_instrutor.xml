@@ -98,6 +98,7 @@
                     android:padding="12dp">
 
                     <TextView
+                        android:id="@+id/txtTelefoneInstrutor"
                         android:layout_height="60dp"
                         android:layout_width="match_parent"
                         android:background="@drawable/bg_input"
@@ -111,6 +112,7 @@
                         android:layout_marginBottom="8dp"/>
 
                     <TextView
+                        android:id="@+id/txtCNHInstrutor"
                         android:layout_height="60dp"
                         android:layout_width="match_parent"
                         android:background="@drawable/bg_input"
@@ -124,6 +126,7 @@
                         android:layout_marginBottom="8dp"/>
 
                     <TextView
+                        android:id="@+id/txtExperienciaInstrutor"
                         android:layout_height="60dp"
                         android:layout_width="match_parent"
                         android:background="@drawable/bg_input"
@@ -137,6 +140,7 @@
                         android:layout_marginBottom="8dp"/>
 
                     <TextView
+                        android:id="@+id/txtVeiculoInstrutor"
                         android:layout_height="60dp"
                         android:layout_width="match_parent"
                         android:background="@drawable/bg_input"
@@ -202,6 +206,7 @@
                         android:layout_marginBottom="4dp"/>
 
                     <TextView
+                        android:id="@+id/txtPrecoAula"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="R$ 50,00 / 50 min"

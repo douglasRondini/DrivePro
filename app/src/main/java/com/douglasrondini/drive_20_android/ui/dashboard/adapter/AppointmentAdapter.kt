@@ -38,7 +38,7 @@ class AppointmentAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(appointment: Appointment) {
-            binding.txtName.text = appointment.alunoNome
+            binding.txtName.text = appointment.partnerName
             binding.txtLocation.text = appointment.localOrigem
             binding.imgAvatar.setImageResource(R.drawable.ic_person)
             binding.imgAvatar.setColorFilter(ContextCompat.getColor(itemView.context, R.color.black))
