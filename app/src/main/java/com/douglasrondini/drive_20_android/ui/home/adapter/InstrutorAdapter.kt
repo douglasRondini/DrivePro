@@ -46,7 +46,11 @@ class InstrutorAdapter(
                     if (instrutor.isAvailable) R.color.accent_green else R.color.gray
                 )
             )
-            binding.tvPreco.text = "Consultar valor" // Ajustado conforme resposta da API que não veio preço
+            binding.tvPreco.text = if (instrutor.price != null) {
+                "R$ %.2f/aula".format(instrutor.price)
+            } else {
+                "Consultar valor"
+            }
 
             binding.imgPerfil.setImageResource(R.drawable.ic_person)
             binding.imgPerfil.setColorFilter(ContextCompat.getColor(itemView.context, R.color.white))

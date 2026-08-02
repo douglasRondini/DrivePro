@@ -9,6 +9,7 @@ data class InstructorResponse(
     @SerializedName("cnh") val cnh: String,
     @SerializedName("placaVeiculo") val plate: String,
     @SerializedName("disponivel") val isAvailable: Boolean,
+    @SerializedName("precoAula") val price: Double?,
     @SerializedName("user") val user: UserInfoDto
 )
 

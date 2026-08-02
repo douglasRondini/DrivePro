@@ -57,7 +57,11 @@ class DetalhesInstrutorFragment : Fragment() {
             // Dados estáticos para campos que não vêm na lista da API
             binding.txtNota.text = "4.9"
             binding.txtExperienciaInstrutor.text = "Experiência comprovada"
-            binding.txtPrecoAula.text = "Consultar valor"
+            binding.txtPrecoAula.text = if (item.price != null) {
+                "R$ %.2f / 50 min".format(item.price)
+            } else {
+                "Consultar valor"
+            }
         }
     }
 

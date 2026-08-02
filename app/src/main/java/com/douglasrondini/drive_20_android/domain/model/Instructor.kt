@@ -11,5 +11,6 @@ data class Instructor(
     val cnh: String,
     val plate: String,
     val isAvailable: Boolean,
+    val price: Double?,
     val email: String
 ) : Parcelable

@@ -22,6 +22,7 @@ class InstructorRepositoryImpl(
                         cnh = dto.cnh,
                         plate = dto.plate,
                         isAvailable = dto.isAvailable,
+                        price = dto.price,
                         email = dto.user.email
                     )
                 }
