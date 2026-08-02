@@ -38,4 +38,10 @@ interface ApiService {
 
     @GET("instrutores/disponiveis")
     suspend fun getAvailableInstructors(): Response<List<InstructorResponse>>
+
+    @PATCH("instrutores/{id}/preco-aula")
+    suspend fun updateUnitPrice(
+        @Path("id") instructorId: String,
+        @Body request: UpdatePriceRequest
+    ): Response<Unit>
 }

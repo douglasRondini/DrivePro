@@ -1,5 +1,6 @@
 package com.douglasrondini.drive_20_android.data.repository
 
+import com.douglasrondini.drive_20_android.data.model.UpdatePriceRequest
 import com.douglasrondini.drive_20_android.data.remote.ApiService
 import com.douglasrondini.drive_20_android.data.remote.helper.BaseRepository
 import com.douglasrondini.drive_20_android.domain.model.Instructor
@@ -26,5 +27,11 @@ class InstructorRepositoryImpl(
                 }
             }
         )
+    }
+
+    override suspend fun updateUnitPrice(instructorId: String, price: Double): Result<Unit> {
+        return safeApiCallUnit {
+            apiService.updateUnitPrice(instructorId, UpdatePriceRequest(price))
+        }
     }
 }

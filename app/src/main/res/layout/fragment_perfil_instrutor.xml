@@ -204,19 +204,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:paddingHorizontal="4dp"
-                android:text="Dados Pessoais"
+                android:text="Configurações da Conta"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp"
-                android:dividerPadding="8dp">
-
-            </LinearLayout>
 
             <!-- Ações -->
             <LinearLayout
@@ -225,6 +216,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="16dp">
 
+                <!-- Preço da Aula -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -244,35 +236,55 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:gravity="center"
-                            android:background="@color/background_light">
+                            android:background="@color/primary">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/ic_arron_next"/>
-
+                                android:src="@drawable/ic_car"
+                                app:tint="@color/black"/>
                         </LinearLayout>
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_weight="1"
-                            android:text="Alterar Senha"
-                            android:textColor="@android:color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_arron_next"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Preço da Hora/Aula"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
+                            <EditText
+                                android:id="@+id/inputPrecoAula"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:hint="R$ 0,00"
+                                android:inputType="numberDecimal"
+                                android:textColor="@android:color/black"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSavePrice"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Salvar"
+                            android:textColor="@color/primary"
+                            android:textStyle="bold"
+                            app:rippleColor="@color/gray" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Retirar Saldo -->
                 <com.google.android.material.card.MaterialCardView
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/white"
@@ -349,4 +361,3 @@
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

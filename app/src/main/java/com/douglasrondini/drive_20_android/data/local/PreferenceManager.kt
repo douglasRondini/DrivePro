@@ -52,6 +52,12 @@ class PreferenceManager(context: Context) {
     fun getSavedTotalRevenue() = sharedPreferences.getFloat(KEY_TOTAL_REVENUE, 0.0f).toDouble()
     fun getSavedAcceptedCount() = sharedPreferences.getInt(KEY_ACCEPTED_COUNT, 0)
 
+    fun saveClassPrice(price: Double) {
+        sharedPreferences.edit().putFloat(KEY_CLASS_PRICE, price.toFloat()).apply()
+    }
+
+    fun getClassPrice() = sharedPreferences.getFloat(KEY_CLASS_PRICE, 0.0f).toDouble()
+
     fun clearData() {
         sharedPreferences.edit().clear().apply()
     }
@@ -68,5 +74,6 @@ class PreferenceManager(context: Context) {
         private const val KEY_PENDING_COUNT = "key_pending_count"
         private const val KEY_TOTAL_REVENUE = "key_total_revenue"
         private const val KEY_ACCEPTED_COUNT = "key_accepted_count"
+        private const val KEY_CLASS_PRICE = "key_class_price"
     }
 }

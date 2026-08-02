@@ -44,6 +44,7 @@ val useCaseModule = module {
     factoryOf(::CompleteAppointmentUseCase)
     factoryOf(::GetAvailableInstructorsUseCase)
     factoryOf(::GetStudentAppointmentsUseCase)
+    factoryOf(::UpdateUnitPriceUseCase)
 }
 
 val viewModelModule = module {
@@ -53,6 +54,7 @@ val viewModelModule = module {
     viewModelOf(::DashboardInstrutorViewModel)
     viewModelOf(::SolicitacoesInstrutorViewModel)
     viewModelOf(::SolicitacaoDetalheInstrutorViewModel)
+    viewModelOf(::PerfilInstrutorViewModel)
     viewModelOf(::HomeAlunoViewModel)
     viewModelOf(::HomeAlunoSolicitacoesViewModel)
 }
