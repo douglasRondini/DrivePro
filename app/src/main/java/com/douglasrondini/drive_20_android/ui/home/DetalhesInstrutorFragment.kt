@@ -108,7 +108,7 @@ class DetalhesInstrutorFragment : Fragment() {
                     if (state.isSuccess) {
                         Snackbar.make(binding.root, "Aula solicitada com sucesso!", Snackbar.LENGTH_LONG).show()
                         viewModel.consumeSuccess()
-                        findNavController().popBackStack()
+                        findNavController().navigate(R.id.action_detalhesInstrutorFragment_to_confirmSolicitacoesFragment)
                     }
 
                     state.errorMessage?.let { msg ->
