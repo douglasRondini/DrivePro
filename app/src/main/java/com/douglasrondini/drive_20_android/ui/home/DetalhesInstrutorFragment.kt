@@ -5,17 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.douglasrondini.drive_20_android.R
 import com.douglasrondini.drive_20_android.databinding.DialogCalendarBinding
 import com.douglasrondini.drive_20_android.databinding.FragmentDetalhesInstrutorBinding
 import com.douglasrondini.drive_20_android.domain.model.Instructor
 import com.douglasrondini.drive_20_android.ui.home.adapter.CustomSpinnerAdapter
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetalhesInstrutorFragment : Fragment() {
     private lateinit var binding: FragmentDetalhesInstrutorBinding
+    private val viewModel: DetalhesInstrutorViewModel by viewModel()
     private var instructor: Instructor? = null
 
     override fun onCreateView(
@@ -33,6 +41,7 @@ class DetalhesInstrutorFragment : Fragment() {
         
         setupUI()
         setupListeners()
+        observeUiState()
         selectData()
         configurarSpinners()
     }
@@ -54,7 +63,6 @@ class DetalhesInstrutorFragment : Fragment() {
                 )
             )
 
-            // Dados estáticos para campos que não vêm na lista da API
             binding.txtNota.text = "4.9"
             binding.txtExperienciaInstrutor.text = "Experiência comprovada"
             binding.txtPrecoAula.text = if (item.price != null) {
@@ -67,11 +75,48 @@ class DetalhesInstrutorFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnSolicitarAula.setOnClickListener {
-            findNavController().navigate(R.id.action_detalhesInstrutorFragment_to_confirmSolicitacoesFragment)
+            val selectedDate = binding.data.text.toString()
+            val selectedTime = binding.spinnerHorarios.selectedItem?.toString() ?: ""
+            val instructorId = instructor?.id ?: return@setOnClickListener
+            val price = instructor?.price ?: 0.0
+
+            if (selectedDate.isNotEmpty() && selectedDate != "Selecione uma Data" && selectedTime.isNotEmpty()) {
+                viewModel.createAppointment(
+                    instructorId = instructorId,
+                    location = "Av. Paulista, 1000", // Pode ser dinâmico no futuro
+                    date = selectedDate,
+                    time = selectedTime,
+                    price = price
+                )
+            } else {
+                Toast.makeText(requireContext(), "Selecione a data e o horário", Toast.LENGTH_SHORT).show()
+            }
         }
         
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().popBackStack()
+        }
+    }
+
+    private fun observeUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    binding.btnSolicitarAula.isEnabled = !state.isLoading
+                    binding.btnSolicitarAula.text = if (state.isLoading) "Solicitando..." else "Solicitar Aula"
+
+                    if (state.isSuccess) {
+                        Snackbar.make(binding.root, "Aula solicitada com sucesso!", Snackbar.LENGTH_LONG).show()
+                        viewModel.consumeSuccess()
+                        findNavController().popBackStack()
+                    }
+
+                    state.errorMessage?.let { msg ->
+                        Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG).show()
+                        viewModel.consumeError()
+                    }
+                }
+            }
         }
     }
 
@@ -86,7 +131,9 @@ class DetalhesInstrutorFragment : Fragment() {
                 .create()
 
             dialogBinding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-                val selectedDate = "$dayOfMonth/${month + 1}/$year"
+                val dayStr = if (dayOfMonth < 10) "0$dayOfMonth" else "$dayOfMonth"
+                val monthStr = if (month + 1 < 10) "0${month + 1}" else "${month + 1}"
+                val selectedDate = "$dayStr/$monthStr/$year"
                 binding.data.text = selectedDate
                 binding.data.setTextColor(requireContext().getColor(R.color.white))
                 dialog.dismiss()

@@ -39,6 +39,9 @@ interface ApiService {
     @GET("instrutores/disponiveis")
     suspend fun getAvailableInstructors(): Response<List<InstructorResponse>>
 
+    @POST("agendamentos")
+    suspend fun createAppointment(@Body request: CreateAppointmentRequest): Response<Unit>
+
     @PATCH("instrutores/{id}/preco-aula")
     suspend fun updateUnitPrice(
         @Path("id") instructorId: String,

@@ -10,7 +10,7 @@ import com.douglasrondini.drive_20_android.ui.register.aluno.RegisterAlunoViewMo
 import com.douglasrondini.drive_20_android.ui.register.instrutor.RegisterInstrutorViewModel
 import com.douglasrondini.drive_20_android.ui.login.LoginViewModel
 import com.douglasrondini.drive_20_android.ui.dashboard.*
-import com.douglasrondini.drive_20_android.ui.home.HomeAlunoViewModel
+import com.douglasrondini.drive_20_android.ui.home.*
 import com.douglasrondini.drive_20_android.ui.solicitações.HomeAlunoSolicitacoesViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModelOf
@@ -45,6 +45,7 @@ val useCaseModule = module {
     factoryOf(::GetAvailableInstructorsUseCase)
     factoryOf(::GetStudentAppointmentsUseCase)
     factoryOf(::UpdateUnitPriceUseCase)
+    factoryOf(::CreateAppointmentUseCase)
 }
 
 val viewModelModule = module {
@@ -54,9 +55,10 @@ val viewModelModule = module {
     viewModelOf(::DashboardInstrutorViewModel)
     viewModelOf(::SolicitacoesInstrutorViewModel)
     viewModelOf(::SolicitacaoDetalheInstrutorViewModel)
-    viewModelOf(::PerfilInstrutorViewModel)
     viewModelOf(::HomeAlunoViewModel)
     viewModelOf(::HomeAlunoSolicitacoesViewModel)
+    viewModelOf(::PerfilInstrutorViewModel)
+    viewModelOf(::DetalhesInstrutorViewModel)
 }
 
 val apiModule = module {
