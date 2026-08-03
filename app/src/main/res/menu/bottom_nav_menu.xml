@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_search"
         android:title="Solicitações"/>
     <item
-        android:id="@+id/nav_perfil"
+        android:id="@+id/perfilAlunoFragment"
         android:icon="@drawable/ic_test"
         android:title="Perfil"/>
 </menu>

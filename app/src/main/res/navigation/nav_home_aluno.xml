@@ -37,4 +37,9 @@
         android:id="@+id/confirmSolicitacoesFragment"
         android:name="com.douglasrondini.drive_20_android.ui.home.ConfirmSolicitacoesFragment"
         android:label="ConfirmSolicitacoesFragment" />
+
+    <fragment
+        android:id="@+id/perfilAlunoFragment"
+        android:name="com.douglasrondini.drive_20_android.ui.home.PerfilAlunoFragment"
+        android:label="PerfilAlunoFragment" />
 </navigation>

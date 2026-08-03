@@ -58,6 +58,7 @@ val viewModelModule = module {
     viewModelOf(::HomeAlunoViewModel)
     viewModelOf(::HomeAlunoSolicitacoesViewModel)
     viewModelOf(::PerfilInstrutorViewModel)
+    viewModelOf(::PerfilAlunoViewModel)
     viewModelOf(::DetalhesInstrutorViewModel)
 }
 
