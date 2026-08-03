@@ -11,9 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.douglasrondini.drive_20_android.R
+import com.douglasrondini.drive_20_android.data.local.PreferenceManager
 import com.douglasrondini.drive_20_android.databinding.FragmentSolicitacaoDetalheInstrutorBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -24,6 +26,7 @@ class SolicitacaoDetalheInstrutorFragment : Fragment() {
     private var _binding: FragmentSolicitacaoDetalheInstrutorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SolicitacaoDetalheInstrutorViewModel by viewModel()
+    private val preferenceManager: PreferenceManager by inject()
     
     private var currentAppointmentId: String? = null
     private var currentStatus: String? = null
@@ -93,6 +96,14 @@ class SolicitacaoDetalheInstrutorFragment : Fragment() {
     }
 
     private fun updateActionButtons(status: String) {
+        val userRole = preferenceManager.getUserRole() ?: ""
+        
+        if (userRole.lowercase() != "instrutor") {
+            binding.btnAceitar.visibility = View.GONE
+            binding.btnRecusar.visibility = View.GONE
+            return
+        }
+
         when (status.uppercase()) {
             "PENDENTE" -> {
                 binding.btnAceitar.visibility = View.VISIBLE
