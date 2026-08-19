@@ -54,9 +54,9 @@ class PerfilInstrutorFragment : Fragment() {
         binding.txtNome.text = preferenceManager.getUserName() ?: "Instrutor"
         binding.txtSubtitulo.text = "Instrutor Credenciado • Categoria B"
         binding.txtAvaliacao.text = "4.9"
-        binding.txtAulas.text = "154"
+        binding.txtAulas.text = preferenceManager.getSavedCompletedCount().toString()
         binding.txtAnos.text = "3"
-        binding.txtSaldoDisponivel.text = "Disponível: R$ 1.850,00"
+        binding.txtSaldoDisponivel.text = "Disponível: R$ %.2f".format(preferenceManager.getSavedTotalRevenue())
     }
 
     private fun setupClicks() {
