@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.play.services.location)
 
     // Koin
     implementation(libs.koin.android)
